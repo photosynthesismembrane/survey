@@ -130,7 +130,7 @@
             if (!last) {
                 tabContent += `<button type="button" onclick="changeTab(${tabIndex}, 1)">Next</button>`;
             } else {
-                tabContent += `<button onclick="submitFeedback()">Submit</button>`;
+                tabContent += `<button type="submit">Submit</button>`;
             }
             tabContent += `</div></div>`;
             return tabContent;
@@ -148,12 +148,6 @@
             document.getElementById("tab" + current).classList.remove("visible");
             document.getElementById("tab" + (current + move)).classList.add("visible");
             window.scrollTo(0, 0); // Scrolls to the top of the page
-        }
-
-        function submitFeedback() {
-            const feedback = document.querySelector(".tab.visible textarea").value;
-            console.log("Feedback submitted:", feedback);
-            alert("Feedback submitted: " + feedback);
         }
 
         window.onload = displayTabs;
