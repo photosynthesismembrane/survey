@@ -125,10 +125,10 @@
             tabContent += `</div>`;
             tabContent += `<div class="controls">`;
             if (tabIndex > 0) {
-                tabContent += `<button onclick="changeTab(${tabIndex}, -1)">Previous</button>`;
+                tabContent += `<button type="button" onclick="changeTab(${tabIndex}, -1)">Previous</button>`;
             }
             if (!last) {
-                tabContent += `<button onclick="changeTab(${tabIndex}, 1)">Next</button>`;
+                tabContent += `<button type="button" onclick="changeTab(${tabIndex}, 1)">Next</button>`;
             } else {
                 tabContent += `<button onclick="submitFeedback()">Submit</button>`;
             }
