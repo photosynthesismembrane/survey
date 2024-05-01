@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Text Combinations</title>
+<style>
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+    }
+    .tab {
+        display: none; /* Hide tabs initially */
+    }
+    .visible {
+        display: block; /* Only the active tab is visible */
+    }
+    #tabContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* This centers the child elements horizontally */
+        width: 100%; /* Ensures the container takes full width */
+    }
+    .item {
+        margin-bottom: 20px;
+        max-width: 35vw;
+        max-height: 110vh;
+        text-align: center;
+
+        border: 1px solid #ddd; /* Light grey border */
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        padding: 50px; /* Padding inside the card */
+        background-color: #fff; /* White background */
+        border-radius: 8px; /* Rounded corners */
+        margin-bottom: 50px; /* Space between cards */
+    }
+    .item * {
+        margin-bottom: 20px;
+    }
+    img {
+        max-width: 100%;
+        max-height: 50vh;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    input[type="radio"], textarea, button {
+        margin-right: 5px;
+    }
+    label {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+    .text-field-container {
+        text-align: center;
+    }
+    textarea {
+        width: 80%; /* Adequate width for writing a paragraph */
+        height: 100px; /* Enough height to write multiple lines */
+        margin: 20px auto; /* Center align the textarea */
+        display: block; /* Ensures that textarea takes its own line */
+    }
+    .controls {
+        text-align: center; /* Center-aligns buttons */
+        padding: 10px;
+    }
+    button {
+        font-size: 16px;
+        padding: 10px;
+        margin: 10px; /* Space between buttons */
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+<script src="image_data_eleborate_format.js"></script>
+</head>
+<body>
+    <div id="tabContainer"></div>
+    <script>
+
+        const options = ["Very Poor", "Poor", "Average", "Good", "Excellent"];
+        const tabTitles = ["Composition", "Contrast", "Movement", "Rythm", "Proportion", "Focus Point"];
+        const tabQuestions = {
+                0: "How would you rate the quality of the <strong>text</strong> on <strong>composition</strong> of these paintings?",
+                1: "How would you rate the quality of the <strong>text</strong> about how <strong>contrast</strong> is used of these paintings?",
+                2: "How would you rate the quality of the <strong>text</strong> on <strong>movement</strong> visualized in the paintings?",
+                3: "How would you rate the quality of the <strong>text</strong> on <strong>rythm</strong> shown in the painting?",
+                4: "How would you rate the quality of the <strong>text</strong> on use of difference in <strong>proportion</strong>?",
+                5: "How would you rate the quality of the <strong>text</strong> on the <strong>focus point</strong> of the paintings?",
+            };
+        const tabData = {
+            0: "composition",
+            1: "contrast_elements",
+            2: "movement",
+            3: "rythm",
+            4: "proportion",
+            5: "focus_point",
+        };
+        
+        function createTabContent(tabIndex, items, last) {
+            let tabContent = `<div class="tab" id="tab${tabIndex}">`;
+            tabContent += `<h2>${tabTitles[tabIndex]}</h2>`;
+            tabContent += `<p>${tabQuestions[tabIndex]}</p><br/><br/>`;
+            items.forEach((item, index) => {
+                tabContent += `
+                    <div class="item">
+                        <img src="images/${item.name}.jpg" alt="${item.name}"><br>
+                        <span>${item[tabData[tabIndex]]}</span><br>
+                        ${options.map(option => `<label><input type="radio" name="option${tabIndex}_${index}" value="${option}">${option}</label>`).join("")}
+                    </div>
+                `;
+            });
+            tabContent += `<div class="text-field-container">`;
+            tabContent += `<p>Please give your overal opinion on the quality of the text:</p>`;
+            tabContent += `<textarea placeholder="Enter your feedback"></textarea>`;
+            tabContent += `</div>`;
+            tabContent += `<div class="controls">`;
+            if (tabIndex > 0) {
+                tabContent += `<button onclick="changeTab(${tabIndex}, -1)">Previous</button>`;
+            }
+            if (!last) {
+                tabContent += `<button onclick="changeTab(${tabIndex}, 1)">Next</button>`;
+            } else {
+                tabContent += `<button onclick="submitFeedback()">Submit</button>`;
+            }
+            tabContent += `</div></div>`;
+            return tabContent;
+        }
+
+        function displayTabs() {
+            const container = document.getElementById("tabContainer");
+            for (let i = 0; i < Math.ceil(imageData.length / 5); i++) {
+                container.innerHTML += createTabContent(i, imageData.slice(i * 5, (i + 1) * 5), i === Math.ceil(imageData.length / 5) - 1);
+            }
+            changeTab(0, 0); // Display the first tab
+        }
+
+        function changeTab(current, move) {
+            document.getElementById("tab" + current).classList.remove("visible");
+            document.getElementById("tab" + (current + move)).classList.add("visible");
+            window.scrollTo(0, 0); // Scrolls to the top of the page
+        }
+
+        function submitFeedback() {
+            const feedback = document.querySelector(".tab.visible textarea").value;
+            console.log("Feedback submitted:", feedback);
+            alert("Feedback submitted: " + feedback);
+        }
+
+        window.onload = displayTabs;
+    </script>
+</body>
+</html>
