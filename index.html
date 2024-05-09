@@ -24,30 +24,30 @@
         width: 100%; /* Ensures the container takes full width */
     }
     .item {
+        display: flex; /* This will align the image and text side by side */
+        align-items: center; /* This will vertically align items in the middle */
+        justify-content: center; /* Aligns items to the start of the 'item' container */
         margin-bottom: 20px;
-        max-width: 35vw;
-        max-height: 110vh;
-        text-align: center;
-
-        border: 1px solid #ddd; /* Light grey border */
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-        padding: 50px; /* Padding inside the card */
-        background-color: #fff; /* White background */
-        border-radius: 8px; /* Rounded corners */
-        margin-bottom: 50px; /* Space between cards */
-    }
-    .item * {
-        margin-bottom: 20px;
+        max-width: 100%;
+        padding: 40px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
     }
     img {
-        max-width: 100%;
-        max-height: 50vh;
+        width: auto; /* Auto width for responsive size */
+        max-height: 80vh;
         border: 1px solid #ccc;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* object-fit: cover; Ensures images cover the area well without distortion */
+    }
+    .text-content {
+        margin: 20px; /* Space between image and text */
+        max-width: 40vw;
     }
     input[type="radio"], textarea, button {
         margin-right: 5px;
+        margin-top: 20px;
     }
     label {
         margin-right: 10px;
@@ -113,12 +113,15 @@
             items.forEach((item, index) => {
                 tabContent += `
                     <div class="item">
-                        <img src="images/${item.name}.jpg" alt="${item.name}"><br>
-                        <span>${item[tabData[tabIndex]]}</span><br>
-                        ${options.map(option => `<label><input type="radio" name="option${tabIndex}_${index}" value="${option}">${option}</label>`).join("")}
+                        <img src="images/${item.name}.jpg" alt="${item.name}">
+                        <div class="text-content">
+                            <span>${item[tabData[tabIndex]]}</span><br>
+                            ${options.map(option => `<label><input type="radio" name="option${tabIndex}_${index}" value="${option}">${option}</label>`).join("")}
+                        </div>
                     </div>
                 `;
             });
+
             tabContent += `<div class="text-field-container">`;
             tabContent += `<p>Please give your overal opinion on the quality of the text:</p>`;
             tabContent += `<textarea name="feedback_${tabIndex}" placeholder="Enter your feedback"></textarea>`;
@@ -142,6 +145,33 @@
                 container.innerHTML += createTabContent(i, imageData.slice(i * 5, (i + 1) * 5), i === Math.ceil(imageData.length / 5) - 1);
             }
             changeTab(0, 0); // Display the first tab
+            attachScrollToNextItem();
+        }
+        
+        function attachScrollToNextItem() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(button => {
+                button.addEventListener('change', function() {
+                    let parentItem = this.closest('.item');
+                    let nextItem = parentItem.nextElementSibling;
+                    if (nextItem && nextItem.classList.contains('item')) {
+                        scrollToItem(nextItem);
+                    } else {
+                        scrollToBottom();
+                    }
+                });
+            });
+        }
+
+        function scrollToItem(item) {
+            const yOffset = -window.innerHeight / 2 + item.clientHeight / 2; // Calculate offset to center the item
+            const yPosition = item.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            
+            window.scrollTo({ top: yPosition, behavior: 'smooth' });
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
         function changeTab(current, move) {
