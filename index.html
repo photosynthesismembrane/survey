@@ -139,10 +139,20 @@
             return tabContent;
         }
 
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                // Generate a random index from 0 to i
+                const j = Math.floor(Math.random() * (i + 1));
+                // Swap elements at indices i and j
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function displayTabs() {
             const container = document.getElementById("tabContainer");
-            for (let i = 0; i < Math.ceil(imageData.length / 5); i++) {
-                container.innerHTML += createTabContent(i, imageData.slice(i * 5, (i + 1) * 5), i === Math.ceil(imageData.length / 5) - 1);
+            shuffleArray(imageData);
+            for (let i = 0; i < 6; i++) {
+                container.innerHTML += createTabContent(i, imageData.slice(i * 5, (i + 1) * 5), i === 5);
             }
             changeTab(0, 0); // Display the first tab
             attachScrollToNextItem();
