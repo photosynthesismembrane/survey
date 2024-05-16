@@ -138,7 +138,7 @@
                         <img src="images/${item.image_filename}" alt="${item.image_filename}">
                         <div class="text-content" id="${tabData[tabIndex]}_${item.image_filename}">
                             <span>${item[`${model}_${tabData[tabIndex]}`]}</span><br/>
-                            ${options.map(option => `<label><input type="radio" name="choice_tabData[tabIndex]_${item.image_filename}" value="${option}">${option}</label>`).join("")}
+                            ${options.map(option => `<label><input type="radio" name="choice_${tabData[tabIndex]}_${item.image_filename}" value="${option}">${option}</label>`).join("")}
                         </div>
                     </div>
                 `;
