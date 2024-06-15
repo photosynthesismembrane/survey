@@ -115,16 +115,21 @@
     }
     button:hover {
         background-color: #45a049;
+    } 
+    /* Important Button */
+    button.important {
+        font-size: 18px;
+        padding: 12px;
+        margin: 10px; /* Space between buttons */
+        background-color: #5BC85C;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    /* Submit button is bigger and red */
-    button.button-red {
-        background-color: #f44336;
-        padding: 15px;
-        font-size: 20px;
-    }
-    /* Hover on submit it get's darker */
-    button.button-red:hover {
-        background-color: #d32f2f;
+    button.important:hover {
+        background-color: #4CAF50;
     }
     .selected {
         background-color: #e7f4e4; /* Subtle light green background for selected text blocks */
@@ -301,7 +306,7 @@
                     </div>
                     <br/>
                     <div class="controls">
-                        <button type="button" class="button-red" onclick="changeTab(0, 1)">Start</button>
+                        <button type="button" class="important" onclick="changeTab(0, 1)">Start</button>
                     </div>
                 </div>
             `;
@@ -317,7 +322,7 @@
                     </div>
                     <div class="controls">
                         <button type="button" onclick="changeTab(${tabIndex}, -1)">Previous</button>
-                        <button type="submit" class="button-red">Submit</button>
+                        <button type="submit" class="important">Submit</button>
                     </div>
                 </div>
             `;
