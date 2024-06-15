@@ -552,7 +552,8 @@
         }
 
         function isMobile() {
-            return window.innerWidth <= 767;
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return (/android|iphone|ipad|ipod|windows phone/i.test(userAgent) || window.innerWidth <= 767);
         }
 
         window.onload = function() {
