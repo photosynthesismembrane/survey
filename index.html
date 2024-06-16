@@ -707,11 +707,11 @@
         }
 
         window.onload = function() {
-            // if (!isMobile()) {
-            displayTabs();
-            // } else {
-            //     document.getElementById('mobileMessage').style.display = 'block';
-            // }
+            if (!isMobile()) {
+                displayTabs();
+            } else {
+                document.getElementById('mobileMessage').style.display = 'block';
+            }
         }
 
         function displayTabs(initially = true) {
