@@ -195,8 +195,9 @@
         /* Dropdown styling */
         .dropdown-container {
             display: flex;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             width: 20vw;
         }
         select {
@@ -230,7 +231,13 @@
                 border: 1px solid #ccc;
             }
         }
-
+        .dataset-container {
+            display: flex;
+            margin-bottom: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 </style>
 <script src="renaissance_data.js"></script>
 <script src="pinterest_data.js"></script>
@@ -397,11 +404,10 @@
                         <h2>Welcome to the Survey</h2>
                     </div>
                     <div class="text-field-container">
-                        <p>Thank you for participating. We will send you 10 euro's when you carefully give us your opinion on the subjects.</p>
-                        <p>I'm Tom Eijkelenkamp and I study Intelligent Systems and Visual Computing at the University of Groningen. I have a fascination for any kind of art form and so for my thesis I study AI art. The research is based around composition of generated art.</p>
+                        <p>Thank you for participating. I'm Tom Eijkelenkamp and I study Computing Science: Intelligent Systems and Visual Computing at the University of Groningen. I have a fascination for any kind of art form and so for my thesis I study AI art. The research is based around composition of generated art.</p>
                         <p>I used several ai vision language models to describe the composition of paintings. Data as such I use to train an ai art generator for further research. I'm interested in your opinion on the quality of the descriptions.</p>
-                        <p>The first half you are asked to select which of the two descriptions fits best. The second half you are asked to highlight parts of the text that you think are not fitting or could be improved. Each tab shows descriptions on a specific topic.</p>
-                        <p>All the paintings come from the WikiArt dataset and do not belong to me. All the data is used for research purposes only. Your input will remain anonymous.</p>
+                        <p>One part of the survey you are asked to select which of the two descriptions fits best. Another part is that you are asked to highlight parts of the text that you think are not fitting or could be improved. Each tab shows descriptions on a specific topic.</p>
+                        <p>The first 50 participants will receive 10 euro's for their time. The survey takes about 30 minutes to complete. Filling in the personal details is not mandatory.</p>
                     </div>
                     <div class="text-field-container">
                         <h3>Please fill in your personal information:</h3>
@@ -430,15 +436,21 @@
                     <div class="text-field-container">
                         <p>I gathered two sets of artworks from the web. There is one set of paintings from the renaissance which I selected from the WikiArt dataset. There is another set of illustrations that I gathered from Pinterest. You can choice for which set you want to do the survey:</p>
                     </div>
-                    <div class="dropdown-container">
-                        <select id="data-source" onchange="changeDataSource()">
-                            <option value="renaissance">Renaissance</option>
-                            <option value="pinterest">Pinterest</option>
-                        </select>
-                    </div>`
-                    + showRandomImageSelection('Renaissance:', renaissance_data, 'renaissance')
-                    + showRandomImageSelection('Pinterest:', pinterest_data, 'images') +
-                    `
+                    <div class="dataset-container">
+                        <div class="dropdown-container">
+                            <select id="data-source" onchange="changeDataSource()">
+                                <option value="renaissance">Renaissance</option>
+                                <option value="pinterest">Pinterest</option>
+                            </select>
+                        </div>`
+                        + showRandomImageSelection('Renaissance:', renaissance_data, 'renaissance')
+                        + showRandomImageSelection('Pinterest:', pinterest_data, 'images') +
+                        `
+                    </div>
+                    <div class="text-field-container">
+                        <p>By joining the survey you give consent to the use of your input in an ananyomous manner for this scientific study. You have the right to withdraw from the study at any time, even after completion of the survey.</p>
+                        <p>If you have questions or remarks send an email to: t.eijkelenkamp@student.rug.nl</p>
+                    </div>
                     <div class="controls">
                         <button type="button" class="important" onclick="changeTab(0, 1)">Start</button>
                     </div>
