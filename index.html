@@ -637,6 +637,9 @@
         }
 
         function validateEmail(email) {
+            if (!email) {
+                return true;
+            }
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(String(email).toLowerCase());
         }
@@ -653,7 +656,7 @@
                 }
                 const emailField = document.getElementById('email');
                 if (emailField && !validateEmail(emailField.value)) {
-                    showModal('Please enter a valid email address.');
+                    showModal('The email you provided is not valid.');
                     emailField.focus();
                     return false;
                 }
@@ -663,9 +666,9 @@
 
         function changeTab(current, move) {
             // Validate current tab fields before moving
-            // if (move === 1 && !validateTabFields(current)) {
-            //     return; // Prevent tab change if validation fails
-            // }
+            if (move === 1 && !validateTabFields(current)) {
+                return; // Prevent tab change if validation fails
+            }
 
             // Record time spent on the current tab
             recordTimeSpent(current);
