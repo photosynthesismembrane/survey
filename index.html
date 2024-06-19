@@ -441,6 +441,8 @@
                             <label for="art_education">Describe in short your education and experience in art:</label>
                             <input type="text" id="art_education" name="art_education">
                         </div>
+                        <input type="hidden" id="ip-address" name="ip">
+                        <input type="hidden" id="country" name="country">
                     </div>
                     <br/>
                     <div class="text-field-container">
@@ -485,7 +487,6 @@
         }
 
         function createTabContent(tabIndex, items, two_options) {
-            console.log(tabInfo);
             let tabInfoItem = tabInfo[Math.ceil(tabIndex / 2)]; 
             let tabContent = `<div class="tab" id="tab${tabIndex}">`;
             tabContent += `<div class="header-container"><h2>(${tabIndex}/6) ${tabInfoItem.title}</h2><h3>${tabInfoItem.subtitle[two_options ? 0 : 1]}</h3><p>${tabInfoItem.questions[two_options ? 0 : 1]}</p></div>`;
@@ -533,17 +534,6 @@
             tabContent += `<input type="hidden" id="time_spent_tab${tabIndex}" name="time_spent_tab${tabIndex}" value="">`;
             tabContent += `</div>`;
             return tabContent;
-        }
-
-        function addTimeSpentFields(numTabs) {
-            const form = document.querySelector('form');
-            for (let i = 0; i <= numTabs; i++) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.id = `time_spent_tab${i}`;
-                input.name = `time_spent_tab${i}`;
-                form.appendChild(input);
-            }
         }
         
         function toggleSelection(event) {
@@ -711,6 +701,33 @@
             }
         }
 
+        function getClientInfo() {
+            // Step 1: Get the IP address using ipify
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                // Put the IP address into the hidden field
+                document.getElementById('ip-address').value = data.ip;
+
+                // Step 2: Use the IP address to get the country information from ipinfo
+                const ip = data.ip;
+                fetch(`https://ipinfo.io/${ip}/json?token=2373b6007f7705`)
+                    .then(response => response.json())
+                    .then(data => {
+                    // Put the country into the hidden field
+                    document.getElementById('country').value = data.country;
+                    })
+                    .catch(error => {
+                    // Put the error message into the hidden country field
+                    document.getElementById('country').value = 'Error fetching country information';
+                    });
+                })
+                .catch(error => {
+                // Put the error message into the hidden IP field
+                document.getElementById('ip-address').value = 'Error fetching IP address';
+                });
+        }
+
         function isMobile() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             return (/android|iphone|ipad|ipod|windows phone/i.test(userAgent) || window.innerWidth <= 767);
@@ -719,6 +736,7 @@
         window.onload = function() {
             if (!isMobile()) {
                 displayTabs();
+                getClientInfo();
             } else {
                 document.getElementById('mobileMessage').style.display = 'block';
             }
@@ -772,8 +790,6 @@
             }
 
             tabEnterTime = new Date().getTime();  // Initialize the first tab entry time
-
-            addTimeSpentFields(7); // Dynamically add hidden fields for 14 tabs (0 to 13)
         }
     </script>
     <!-- Modal -->
