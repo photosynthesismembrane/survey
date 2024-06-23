@@ -517,10 +517,10 @@
                     tabContent += `
                         <div class="item">
                             <img src="${image_folder}/${item}" alt="${item}">
-                            <div class="text-content highlight-text-content" id="${tabInfoItem.data}_${item}">
+                            <div class="text-content highlight-text-content" id="${model}_${tabInfoItem.data}_${item}">
                                 <span>${text}</span>
                             </div>
-                            <input type="hidden" class="input-highlights" id="highlights_${tabInfoItem.data}_${item}" name="highlights_${tabInfoItem.data}_${item}">
+                            <input type="hidden" class="input-highlights" id="highlights_${model}_${tabInfoItem.data}_${item}" name="highlights_${model}_${tabInfoItem.data}_${item}">
                         </div>
                     `;
                 });
