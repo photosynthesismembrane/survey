@@ -548,14 +548,13 @@
 
         function createIntroTab() {
             mobile = window.mobileAndTabletCheck() ? 'mobile' : 'non-mobile';
+            new_lines = mobile === 'non-mobile' ? '<br/><br/><br/>' : '<br/><br/><br/><br/><br/><br/>';
             return `
                 <div class="tab visible ${mobile}" id="tab0">
                     <div class="deadline-message ${mobile}">
                         Entries up to 10th of Juli 2024 are valid
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
+                    ${new_lines}
                     <div class="header-container">
                         <h2>Welcome to the Survey</h2>
                     </div>
