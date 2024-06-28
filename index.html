@@ -60,6 +60,18 @@
         align-items: center; /* This centers the child elements horizontally */
         width: 100%; /* Ensures the container takes full width */
     }
+    
+    .deadline-message {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: #f1f1f1;
+        color: #333;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+    }
     .text-field-container {
         display: flex;
         flex-direction: column;
@@ -534,6 +546,9 @@
             mobile = window.mobileAndTabletCheck() ? 'mobile' : 'non-mobile';
             return `
                 <div class="tab visible ${mobile}" id="tab0">
+                        <div class="deadline-message ${mobile}">
+                            Entries up to 10th of Juli 2024 are valid
+                        </div>
                     <div class="header-container">
                         <h2>Welcome to the Survey</h2>
                     </div>
