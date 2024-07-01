@@ -656,9 +656,9 @@
                         odd_even = index % 2 === 0 ? 'even' : 'odd';
                         tabContent += `
                             <div class="item ${mobile} ${odd_even} ${tabTask}">
-                                <input type="hidden" name="${tabInfoItem.data}_${firstComposition}_${secondComposition}_${item}" value="">
                                 <img src="${image_folder}/${item}" class="${mobile}" alt="${item}">
                                 <div class="text-content-container-mobile">
+                                    <input type="hidden" name="${tabInfoItem.data}_${firstComposition}_${secondComposition}_${item}" value="">
                                     <div class="text-content ${mobile} two-option-text-content" data-index="${firstComposition}" onclick="toggleSelection(event)">
                                         <span>${text_one}</span><br>
                                     </div>
