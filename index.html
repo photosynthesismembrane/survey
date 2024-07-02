@@ -627,7 +627,7 @@
         }
 
         function createTabContent(tabIndex, items, two_options) {
-            let tabInfoItem = tabInfo[Math.ceil(tabIndex / 2)]; 
+            let tabInfoItem = tabInfo[tabIndex]; 
             let mobile = window.mobileAndTabletCheck() ? 'mobile' : 'non-mobile';
             let tabTask = two_options ? 'two-options-tab' : 'highlight-tab';
             let tabContent = `<div class="tab ${mobile} ${tabTask}" id="tab${tabIndex}">`;
@@ -792,7 +792,7 @@
         function updateHighlightsInput(element) {
             const highlightsInput = document.getElementById(`highlights_${element.id}`);
             if (highlightsInput) {
-                highlightsInput.value = element.highlights.join(' | ');
+                highlightsInput.value = element.innerHTML.trim();
             }
         }
 
@@ -971,12 +971,16 @@
             shuffleArray(tabInfo);
             const imageKeys = Object.keys(image_data);
             shuffleArray(imageKeys);
-            for (let i = 1; i < 3; i++) {
+            for (let i = 1; i < 5; i++) {
                 const template = document.createElement('template');
-                template.innerHTML = createTabContent(i*2-1, imageKeys.slice((i - 1) * 3, i * 3), true);
-                container.appendChild(template.content);
-                template.innerHTML = createTabContent(i*2, imageKeys.slice((i - 1) * 3, i * 3), false);
-                container.appendChild(template.content);
+
+                if (i%2 === 1) {
+                    template.innerHTML = createTabContent(i, imageKeys.slice((i - 1) * 3, i * 3), true);
+                    container.appendChild(template.content);
+                } else {
+                    template.innerHTML = createTabContent(i, imageKeys.slice((i - 1) * 3, i * 3), false);
+                    container.appendChild(template.content);
+                }
             }
             const template = document.createElement('template');
             template.innerHTML = createOutroTab(5);
