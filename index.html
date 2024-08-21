@@ -268,7 +268,7 @@
         function changeDataSource() {
             const dataSource = document.getElementById('data-source').value;
             if (dataSource === 'pinterest') {
-                image_folder = 'images';
+                image_folder = 'pinterest';
                 image_data = pinterest_data;
             } else if (dataSource === 'renaissance') {
                 image_folder = 'renaissance';
@@ -456,7 +456,7 @@
                             </select>
                         </div>`
                         + showRandomImageSelection('Renaissance:', renaissance_data, 'renaissance')
-                        + showRandomImageSelection('Pinterest:', pinterest_data, 'images') +
+                        + showRandomImageSelection('Pinterest:', pinterest_data, 'pinterest') +
                         `
                     </div>
                     <div class="text-field-container">
